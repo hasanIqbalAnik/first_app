@@ -16,4 +16,5 @@
 /tmp/*
 doc/api
 doc/app
+/.idea/*
 *.swp
