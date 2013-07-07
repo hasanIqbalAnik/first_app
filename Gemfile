@@ -7,16 +7,13 @@ gem 'rails', '3.2.13'
 
 group :development, :test do
   gem 'sqlite3'
+  gem "rspec-rails", "~> 2.14.0"
 end
 group :production do
   gem 'pg'
 end
-group :development do
-  
-end
 
 group :test do
-  gem "rspec-rails",      ">= 2.0.0.beta"
   gem "autotest"
   gem "autotest-rails"
   gem 'webrat', '0.7.1'
