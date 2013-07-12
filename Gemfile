@@ -4,7 +4,7 @@ gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'gravatar_image_tag'
 group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails", "~> 2.14.0"
@@ -18,7 +18,7 @@ group :test do
   gem "autotest"
   gem "autotest-rails"
   gem 'webrat', '0.7.1'
-
+  gem 'factory_girl_rails', '1.0'
 end
 
 
