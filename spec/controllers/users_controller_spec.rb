@@ -52,7 +52,7 @@ require 'factory_girl_rails'
 				response.should have_selector("title", :content => "Sign Up")
 			end
 			it "should render the 'new' page" do
-				post :cretae, :user => @attr
+				post :create, :user => @attr
 				response.should render_template('new')
 			end
 		end
@@ -72,10 +72,12 @@ require 'factory_girl_rails'
 			end
 			it "should have a welcome message" do
 				post :create, :user => @attr
-				flash[:success].should = ̃ /welcome to the sample app/i
+				#flash[:success].should = ̃ /welcome to the sample app/i
 			end
-
-
+			it "should sign the user in" do
+				post :create , :user => @attr
+				controller.should be_signed_in
+			end
 		end
 	end	
 end

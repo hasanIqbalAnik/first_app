@@ -62,5 +62,7 @@ module FirstApp
     config.generators do |g|
        g.test_framework :rspec
     end
+    #autoload libraries
+    config.autoload_paths << "#{Rails.root}/lib"
   end
 end
