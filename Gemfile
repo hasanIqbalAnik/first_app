@@ -5,10 +5,13 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'gravatar_image_tag'
+gem 'will_paginate', '3.0.pre4'
+
 group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails", "~> 2.14.0"
   gem 'annotate'
+  gem 'faker', '0.3.1'
 end
 group :production do
   gem 'pg'
