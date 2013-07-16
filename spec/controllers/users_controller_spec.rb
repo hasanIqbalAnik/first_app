@@ -51,6 +51,17 @@ describe UsersController do
           response.should have_selector("li", :content => user.name)
         end
       end
+      it "should hide the delete links" do
+        test_sign_in(@user)
+        get :index
+        response.should_not have_selector("data-method", :content => "delete")
+      end
+      it "show delete links to admins" do
+        admin = Factory(:user , :email => "admin@example.com", :admin => true)
+        test_sign_in(admin)
+        get :index
+        response.should contain("delete")
+      end
     end
   end
 
@@ -171,10 +182,11 @@ describe UsersController do
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
       end
+
     end
     describe "as an admin user" do
       before(:each) do
-        admin = Factory(:usre , :email => "admin@example.com", :admin => true)
+        admin = Factory(:user , :email => "admin@example.com", :admin => true)
         test_sign_in(admin)
       end
       it "should destroy the user" do
@@ -187,7 +199,9 @@ describe UsersController do
         delete :destroy, :id => @user
         response.should redirect_to(users_path)
       end
+      it "should not destroy itself" do
 
+      end
     end
   end
 

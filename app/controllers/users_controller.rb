@@ -3,10 +3,17 @@ class UsersController <ApplicationController
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user, :only => :destroy
 
+
   def destroy
-    User.find(params[:id]).destroy
+    user =User.find(params[:id])
+    if current_user.admin? and user == current_user
+      flash[:error] = "STOP!!!! You shouldn't kill yourself!"
+      redirect_to root_path
+    else
+    user.destroy
     flash[:success] = "User destroyed"
     redirect_to(users_path)
+     end
   end
 
 
@@ -21,20 +28,32 @@ class UsersController <ApplicationController
   end
 
   def new
+    if !current_user.nil?
+      flash[:success] = "You are already signed in buddy!"
+      redirect_to root_path
+    else
     @user = User.new
     @title = "Sign up"
+    end
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+
+    if !current_user.nil?
+      flash[:success] = "You are already signed in buddy!"
+      redirect_to root_path
     else
-      @title = "Sign Up"
-      render 'new'
+      @user = User.new(params[:user])
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to the Sample App!"
+        redirect_to @user
+      else
+        @title = "Sign Up"
+        render 'new'
+      end
     end
+
   end
 
   def edit
@@ -67,5 +86,6 @@ class UsersController <ApplicationController
   def admin_user
     redirect_to(root_path) unless current_user.admin?
   end
+
 
 end
