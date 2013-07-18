@@ -17,8 +17,6 @@
 /tmp/*
 doc/api
 doc/app
-/.idea/*
-/.idea/**/*
 *.iml
 *.swp
-.idea/
+.idea
