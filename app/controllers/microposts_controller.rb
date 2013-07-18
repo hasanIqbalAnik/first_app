@@ -12,10 +12,16 @@ class MicropostsController < ApplicationController
     end
   end
   def destroy
-
+    @micropost.destroy
+    redirect_back_or root_path
   end
 
   def index
 
+  end
+  private
+  def authorize_user
+    @micropost = Micropost.find_by_id(params[:id])
+    redirect_to root_path unless current_user?(@micropost.user)
   end
 end
