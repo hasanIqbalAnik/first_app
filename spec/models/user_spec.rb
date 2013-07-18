@@ -137,4 +137,24 @@ describe User do
 
     end
   end
+
+  describe "micropost association" do
+    @user = User.create(@attr)
+    @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
+    @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+  end
+  it "should have micropost attribute" do
+    @user.should respond_to(:microposts)
+  end
+  it "should have the microposts in right order" do
+    @user.microposts.should == [mp2, mp1]
+  end
+  it "should destroy microposts with user" do
+    @user.destroy
+    [@mp2, mp1].each do |mp|
+      Micropost.find_by_id(mp.id).should be_nil
+    end
+  end
+
+
 end
