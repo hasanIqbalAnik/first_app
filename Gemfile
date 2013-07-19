@@ -7,6 +7,7 @@ gem 'rails', '3.2.13'
 gem 'gravatar_image_tag'
 gem 'will_paginate', '~> 3.0.0'
 gem 'faker', '0.3.1'
+gem "database_cleaner", "~> 1.0.1"
 group :development, :test do
   gem 'sqlite3'
   gem "rspec-rails", "~> 2.14.0"

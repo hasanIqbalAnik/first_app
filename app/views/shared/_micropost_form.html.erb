@@ -2,6 +2,7 @@
     <%= render "shared/error_messages", :object => f.object %>
     <div class="field">
     <%=	 f.text_area :content %>
+    <br/><span class="countdown">140 characters left</span>
     </div>
     <div class="actions">
     <%=	 f.submit "Submit" %>

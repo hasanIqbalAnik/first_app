@@ -13,6 +13,8 @@ describe MicropostsController do
       delete :destroy, :id => 1
       response.should redirect_to(signin_path)
     end
+
+
   end
 
   describe "POST 'create'" do
@@ -37,20 +39,32 @@ describe MicropostsController do
     end
     describe "success" do
       before (:each) do
-        @attr = {:content => "lorem ipsum dolor sit amet"}
+        @attr1 = {:content => "lorem ipsum dolor sit amet"}
+        @attr2 = {:content => "another lorem ipsum text"}
       end
       it "should create a new micropost" do
         lambda do
-        post :create, :micropost => @attr
+        post :create, :micropost => @attr1
         end.should change(Micropost, :count).by(+1)
       end
       it "should redirect to the home page" do
-        post :create, :micropost => @attr
+        post :create, :micropost => @attr1
         response.should redirect_to(root_path)
       end
       it "should have a flash message" do
-        post :create, :micropost => @attr
+        post :create, :micropost => @attr1
         flash[:success].should =~ /micropost created/i
+      end
+
+      it "should pluralize micropost count" do
+        post :create
+        response.should have_selector('span', :content => "0 microposts")
+        post :create, :micropost => @attr1
+        post :create
+        response.should have_selector('span', :content => "1 micropost")
+        post :create, :micropost => @attr2
+        post :create
+        response.should have_selector('span', :content => "2 microposts")
       end
     end
   end
