@@ -62,6 +62,10 @@ describe UsersController do
         get :index
         response.should contain("delete")
       end
+      it "should hide others post's delete link" do
+        pending 
+      end
+
     end
   end
 
