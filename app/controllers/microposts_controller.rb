@@ -17,8 +17,14 @@ class MicropostsController < ApplicationController
   end
 
   def index
+<<<<<<< HEAD
       user = User.find_by_id(params[:id])
       @feed_items = user.microposts.paginate(:page => params[:page], per_page: 5)
+=======
+    @user = User.find(params[:id])
+    @feed_items = @user.microposts.paginate(:page => params[:page], per_page: 5)
+    @title = @user.name
+>>>>>>> 4dd3ef9efe92c9ccc7bd66e06b8b0342f0d5496d
   end
   private
   def authorize_user

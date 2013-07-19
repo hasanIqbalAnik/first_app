@@ -12,7 +12,11 @@ FirstApp::Application.routes.draw do
   match '/contact',:to  => 'pages#contact'
   match '/about',  :to  => 'pages#about'
   match '/help',   :to  => 'pages#help'
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 4dd3ef9efe92c9ccc7bd66e06b8b0342f0d5496d
   match '/users/:id/microposts', :to => 'microposts#index'
   
   # The priority is based upon order of creation:
