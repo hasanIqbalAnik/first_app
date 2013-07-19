@@ -17,7 +17,8 @@ class MicropostsController < ApplicationController
   end
 
   def index
-
+      user = User.find_by_id(params[:id])
+      @feed_items = user.microposts.paginate(:page => params[:page], per_page: 5)
   end
   private
   def authorize_user

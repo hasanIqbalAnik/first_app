@@ -3,6 +3,7 @@ FirstApp::Application.routes.draw do
   resources :microposts, :only => [:create, :destroy]
   resources :users
 
+
   match '/signup', :to  => 'users#new'
   
   match '/signin', :to => 'sessions#new'
@@ -12,6 +13,7 @@ FirstApp::Application.routes.draw do
   match '/about',  :to  => 'pages#about'
   match '/help',   :to  => 'pages#help'
 
+  match '/users/:id/microposts', :to => 'microposts#index'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
