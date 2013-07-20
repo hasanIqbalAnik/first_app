@@ -13,7 +13,12 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :email, :name, :password, :password_confirmation
   has_many :microposts, :dependent => :destroy
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
+  has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships, :source => :follower
+  has_many :following, :through => :relationships, :source => :followed
+
+           email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, :presence => true,
                    :length => {:maximum => 50}   
   validates :email, :presence =>true,
@@ -37,8 +42,19 @@ class User < ActiveRecord::Base
 	user = find_by_email(email)
 	return nil if user.nil?
 	return user if user.has_password?(submitted_password)
-   end
-private 
+  end
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
+  end
+
+
+  private
   def encrypt_password
 	self.salt = make_salt if new_record?
 	self.encrypted_password = encrypt(password)

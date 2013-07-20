@@ -1,5 +1,8 @@
 <% if signed_in? %>
 <%= render 'shared/microposts' %>
+    <%= render 'shared/user_info' %>
+    <%= render 'shared/stats' %>
+
 <% else %>
 <%=	 render 'shared/sign_up' %>
 <% end %>
